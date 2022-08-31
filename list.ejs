@@ -1,0 +1,31 @@
+<%- include("header") -%>
+
+  <div class="box" id="heading">
+    <h1> <%= listTitle %> </h1>
+  </div>
+
+  <div class="box">
+
+    <%# using for each to stop adding and only addin items(NLI-array of item doc) %>
+<% newListItems.forEach(function(item){ %>
+  <%# putted inside  aform so we can cancel %>
+  <form action = "/delete" method="post">
+   <div class = "item">
+     <!-- to submit checkbox (item._id give deleted item id)-->
+    <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+    <p><%= item.name%></p>
+  </div>
+  <!-- hidden tag use to edit changes in form as devloper -->
+  <input type = "hidden" name="listName" value="<%= listTitle %>"></input>
+</form>
+
+<%  }) %>
+
+      <form class="item" action="/" method="post">
+        <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+        <!-- whenever submit acces 2 name an new list -->
+        <button type="submit" name="list" value ="<%= listTitle %>">+</button>
+      </form>
+  </div>
+
+<%- include("footer") -%>
